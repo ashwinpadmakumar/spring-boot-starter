@@ -21,6 +21,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "com.google.code.gson:gson"
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -28,4 +29,10 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+jib {
+	to {
+		image = 'adoptopenjdk/openjdk11-openj9'
+	}
 }

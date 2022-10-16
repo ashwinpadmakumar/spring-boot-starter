@@ -9,7 +9,6 @@ allprojects {
 	sourceCompatibility = '17'
 
 	apply plugin: 'checkstyle'
-
 	checkstyle {
 		toolVersion '8.39'
 		configFile rootProject.file('config/checkstyle/checkstyle.xml')

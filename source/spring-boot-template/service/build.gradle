@@ -2,7 +2,21 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.4'
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
-    id 'com.google.cloud.tools.jib' version '3.1.2'
+}
+
+bootRun {
+    if (project.hasProperty('jvmArgs')) {
+        jvmArgs = (project.jvmArgs.split(/\s+/) as List)
+    }
+    if(project.hasProperty('args')) {
+        args = (project.args.split(/\s+/) as List)
+    }
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.workspace.service.ServiceApplication"
+    }
 }
 
 group = 'com.workspace'
@@ -20,19 +34,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-jib {
-    to {
-        image = 'adoptopenjdk/openjdk11-openj9'
-    }
-}
-
-bootRun {
-    if (project.hasProperty('jvmArgs')) {
-        jvmArgs = (project.jvmArgs.split(/\s+/) as List)
-    }
-    if(project.hasProperty('args')) {
-        args = (project.args.split(/\s+/) as List)
-    }
 }

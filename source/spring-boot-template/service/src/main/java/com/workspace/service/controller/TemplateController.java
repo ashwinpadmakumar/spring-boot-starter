@@ -1,5 +1,5 @@
 /**
- * Description: Class Description
+ * Description: Class Description.
  *
  * @author: Ashwin Padmakumar
  * @since: 2022-10-16

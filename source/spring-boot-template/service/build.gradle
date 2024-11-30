@@ -4,6 +4,10 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.14.RELEASE'
 }
 
+/*
+    What is bootRun?
+    The bootRun task is a Gradle task provided by the Spring Boot Gradle plugin. It is used to run the Spring Boot application.
+*/
 bootRun {
     if (project.hasProperty('jvmArgs')) {
         jvmArgs = (project.jvmArgs.split(/\s+/) as List)
@@ -34,4 +38,18 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+/*
+    This is how we can define a custom gradle task.
+    How to run this?
+    ./gradlew customTask
+*/
+tasks.register('customTask') {
+    doFirst {
+        println 'Starting custom task...'
+    }
+    doLast {
+        println 'Finished custom task.'
+    }
 }

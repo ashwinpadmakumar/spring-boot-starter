@@ -21,6 +21,6 @@ public class TemplateController {
 
   @GetMapping
   public ResponseEntity<String> noop() {
-    return new ResponseEntity<>("Hello Everyone", HttpStatus.OK);
+    return new ResponseEntity<>("No Operation", HttpStatus.OK);
   }
 }

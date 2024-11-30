@@ -1,23 +1,23 @@
-version: '3.8'
+#version: '3.8'
 networks:
   personal-network:
     external: true
 services:
-  spring-boot-tempate-service:
+  spring-boot-template-service:
     build: 
       context: ./source/spring-boot-template
       dockerfile: dev.Dockerfile
       args:
-        userID: ${userID}
-        groupID: ${groupID}
+        userID: ${userID:-1000}
+        groupID: ${groupID:-1000}
     volumes:
       - ./:/app/
       - ~/.gradle:/tmp/gradle_user_home
     working_dir: /app/source/spring-boot-template
     ports:
-      - 8080:8080
+      - "8080:8080"
     command: [ "sh", "./run.sh" ]
-    user: ${userID}:${groupID}
+    user: ${userID:-1000}:${groupID:-1000}
     networks:
       - personal-network
     hostname: spring-boot-template-service

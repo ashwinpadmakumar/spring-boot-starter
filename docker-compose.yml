@@ -1,4 +1,3 @@
-#version: '3.8'
 networks:
   personal-network:
     external: true

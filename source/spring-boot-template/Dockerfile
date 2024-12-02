@@ -1,0 +1,14 @@
+# Use an OpenJDK base image
+FROM openjdk:17
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the JAR file into the container
+COPY service/build/libs/service-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port your application runs on (default 8080 for Spring Boot)
+EXPOSE 8080
+
+# Set the command to run the JAR file
+ENTRYPOINT ["java", "-jar", "app.jar"]

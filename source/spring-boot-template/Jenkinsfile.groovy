@@ -7,7 +7,8 @@ pipeline {
 
     stages {
         stage('Prerequisites') {
-            script {
+            steps {
+                script {
                     // Check if Docker is installed
                     boolean dockerInstalled = sh(
                         script: 'command -v docker',
@@ -45,6 +46,7 @@ pipeline {
 
                         echo 'Docker installation completed.'
                     }
+                }
             }
         }
         stage('Checkout') {

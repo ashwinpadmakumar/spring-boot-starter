@@ -114,18 +114,35 @@ services:
     container_name: postgres-service
 
   jenkins-service:
-    image: jenkins/jenkins:lts
+    build:
+      context: ./dockerfiles
+      dockerfile: jenkins.Dockerfile
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - personal-network
     hostname: jenkins-service
     container_name: jenkins-service
     #Username: user
     #Passwowrd: password
+
+  docker-service:
+    image: docker:dind
+    privileged: true
+    ports:
+      - "2375:2375"
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    volumes:
+      - docker_data:/var/lib/docker
+    networks:
+      - personal-network
+    hostname: docker-service
+    container_name: docker-service
 
 volumes:
   zookeeper_service_data:
@@ -136,3 +153,4 @@ volumes:
   redis_data:
   postgres_data:
   jenkins_home:
+  docker_data:

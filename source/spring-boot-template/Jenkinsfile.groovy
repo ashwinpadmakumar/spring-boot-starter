@@ -6,49 +6,6 @@ pipeline {
     }
 
     stages {
-        stage('Prerequisites') {
-            steps {
-                script {
-                    // Check if Docker is installed
-                    boolean dockerInstalled = sh(
-                        script: 'command -v docker',
-                        returnStatus: true
-                    ) == 0
-
-                    // Install Docker if not installed
-                    if (dockerInstalled) {
-                        echo 'Docker is already installed.'
-                    } else {
-                        echo 'Docker is not installed. Installing Docker...'
-
-                        // Update package information and install Docker
-                        sh '''
-                        # Update package information
-                        apt-get update
-
-                        # Install Docker dependencies
-                        apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-
-                        # Add Docker's official GPG key
-                        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-                        gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-                        # Add Docker's official APT repository
-                        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] " + \\
-                        https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-                        # Update the package database
-                        apt-get update
-
-                        # Install Docker CE
-                        apt-get install -y docker-ce docker-ce-cli containerd.io
-                        '''
-
-                        echo 'Docker installation completed.'
-                    }
-                }
-            }
-        }
         stage('Checkout') {
             steps {
                 echo 'Checkout to master'
@@ -73,6 +30,16 @@ pipeline {
                 dir("${SOURCE_DIR}") {
                     sh 'docker -v'
                     sh 'docker build -t spring-boot-starter .'
+                }
+            }
+        }
+        stage('Push') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
+                        sh 'docker login -u ashwin2692 -p $dockerpwd'
+                        sh 'docker push spring-boot-starter'
+                    }
                 }
             }
         }

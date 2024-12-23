@@ -37,8 +37,8 @@ pipeline {
         stage('Tag') {
             steps {
                 script {
-                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    sh "docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${commitHash}"
+                    env.COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    sh "docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
                         sh 'docker login -u ashwin2692 -p $dockerpwd'
                         sh "docker push ${DOCKER_IMAGE}:latest"
-                        sh "docker push ${DOCKER_IMAGE}:${commitHash}"
+                        sh "docker push ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
                     }
                 }
             }

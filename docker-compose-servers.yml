@@ -122,11 +122,11 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./certs:/certs
+      - ./.shared-volumes/docker/certs:/certs #Consuming certs exposed by docker-service
     depends_on:
       - docker-service
     environment:
+      # ENVs to use docker commands in jenkins-service container
       DOCKER_HOST: "tcp://docker-service:2376"
       DOCKER_TLS_VERIFY: 1
       DOCKER_CERT_PATH: /certs/client
@@ -144,7 +144,7 @@ services:
     ports:
       - "2376:2376"
     volumes:
-      - ./certs:/certs
+      - ./.shared-volumes/docker/certs:/certs #Exposing the certs to pwd volume so that jenkins-service can use the certs to contact docker
     networks:
       - personal-network
     hostname: docker-service

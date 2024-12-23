@@ -29,7 +29,7 @@ pipeline {
                 echo 'Packing the application into docker image'
                 dir("${SOURCE_DIR}") {
                     sh 'docker -v'
-                    sh 'docker build -t spring-boot-starter .'
+                    sh 'docker build -t ashwin2692/spring-boot-starter .'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
                         sh 'docker login -u ashwin2692 -p $dockerpwd'
-                        sh 'docker push spring-boot-starter'
+                        sh 'docker push ashwin2692/spring-boot-starter'
                     }
                 }
             }

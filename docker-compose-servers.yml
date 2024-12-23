@@ -123,10 +123,15 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - docker-service
+    environment:
+      DOCKER_HOST: "tcp://docker-service:2376"
     networks:
       - personal-network
     hostname: jenkins-service
     container_name: jenkins-service
+    privileged: true
     #Username: user
     #Passwowrd: password
 
@@ -134,11 +139,7 @@ services:
     image: docker:dind
     privileged: true
     ports:
-      - "2375:2375"
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    volumes:
-      - docker_data:/var/lib/docker
+      - "2376:2376"
     networks:
       - personal-network
     hostname: docker-service

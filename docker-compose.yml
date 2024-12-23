@@ -14,7 +14,7 @@ services:
       - ~/.gradle:/tmp/gradle_user_home
     working_dir: /app/source/spring-boot-template
     ports:
-      - "8080:8080"
+      - "9090:8080"
     command: [ "sh", "./run.sh" ]
     user: ${userID:-1000}:${groupID:-1000}
     networks:

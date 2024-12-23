@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         SOURCE_DIR = 'source/spring-boot-template'
+        DOCKER_IMAGE = 'ashwin2692/spring-boot-starter'
     }
 
     stages {
@@ -29,7 +30,15 @@ pipeline {
                 echo 'Packing the application into docker image'
                 dir("${SOURCE_DIR}") {
                     sh 'docker -v'
-                    sh 'docker build -t ashwin2692/spring-boot-starter .'
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
+                }
+            }
+        }
+        stage('Tag') {
+            steps {
+                script {
+                    def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                    sh "docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${commitHash}"
                 }
             }
         }
@@ -38,7 +47,8 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
                         sh 'docker login -u ashwin2692 -p $dockerpwd'
-                        sh 'docker push ashwin2692/spring-boot-starter'
+                        sh "docker push ${DOCKER_IMAGE}:latest"
+                        sh "docker push ${DOCKER_IMAGE}:${commitHash}"
                     }
                 }
             }

@@ -1,45 +1,45 @@
 plugins {
-	id 'java'
-	id 'checkstyle'
+    id 'java'
+    id 'checkstyle'
 }
 
 allprojects {
-	group = 'com.workspace'
-	version = '0.0.1-SNAPSHOT'
-	sourceCompatibility = '17'
+    group = 'com.workspace'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '17'
 
-	apply plugin: 'checkstyle'
-	checkstyle {
-		toolVersion '8.39'
-		configFile rootProject.file('config/checkstyle/checkstyle.xml')
-		ignoreFailures = false
-		maxWarnings = 0
-		maxErrors = 0
-	}
+    apply plugin: 'checkstyle'
+    checkstyle {
+        toolVersion '8.39'
+        configFile rootProject.file('config/checkstyle/checkstyle.xml')
+        ignoreFailures = false
+        maxWarnings = 0
+        maxErrors = 0
+    }
 
-	repositories {
-		mavenCentral()
-	}
+    repositories {
+        mavenCentral()
+    }
 
-	test {
-		useJUnitPlatform()
-	}
+    test {
+        useJUnitPlatform()
+    }
 }
 
 subprojects {
-	sourceCompatibility = '17'
-	targetCompatibility = '17'
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
 
-	apply plugin: 'checkstyle'
-	checkstyle {
-		toolVersion '8.39'
-		configFile rootProject.file('config/checkstyle/checkstyle.xml')
-		ignoreFailures = false
-		maxWarnings = 0
-		maxErrors = 0
-	}
+    apply plugin: 'checkstyle'
+    checkstyle {
+        toolVersion '8.39'
+        configFile rootProject.file('config/checkstyle/checkstyle.xml')
+        ignoreFailures = false
+        maxWarnings = 0
+        maxErrors = 0
+    }
 
-	test {
-		useJUnitPlatform()
-	}
+    test {
+        useJUnitPlatform()
+    }
 }

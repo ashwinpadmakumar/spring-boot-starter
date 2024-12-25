@@ -67,3 +67,6 @@ output/
 **/logs/*
 
 **/.shared-volumes
+
+### VS Code ###
+.vscode/

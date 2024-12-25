@@ -12,7 +12,7 @@ bootRun {
     if (project.hasProperty('jvmArgs')) {
         jvmArgs = (project.jvmArgs.split(/\s+/) as List)
     }
-    if(project.hasProperty('args')) {
+    if (project.hasProperty('args')) {
         args = (project.args.split(/\s+/) as List)
     }
 }
@@ -53,3 +53,17 @@ tasks.register('customTask') {
         println 'Finished custom task.'
     }
 }
+
+/*
+    Runs when we run ./gradlew clean
+*/
+tasks.clean.doLast {
+    def logDir = file("${projectDir}/logs")
+    if (logDir.exists()) {
+        println "Deleting log folder: ${logDir}"
+        logDir.deleteDir()
+    } else {
+        println "Log folder not found: ${logDir}"
+    }
+}
+

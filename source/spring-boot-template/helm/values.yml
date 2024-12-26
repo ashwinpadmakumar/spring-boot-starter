@@ -1,0 +1,40 @@
+replicas: helm/stages/?/values.yaml # Number of replicas for the deployment
+
+autoscale:
+  enabled: true
+  replicas:
+    min: helm/stages/?/values.yaml # Minimum number of replicas for autoscaling
+    max: helm/stages/?/values.yaml # Maximum number of replicas for autoscaling
+  target:
+    cpu: helm/stages/?/values.yaml # Target CPU utilization for autoscaling
+
+strategy: # define the strategy for updating the pods while doing a deployment
+  type: RollingUpdate # a rolling update gradually replaces the old pods with new ones. This ensures that some instances of the application are always running, providing continuous availability.
+  surge: 1 # Number of pods that can be created above the desired number of pods during an update
+  unavailable: 0 # Number of pods that can be unavailable during an update
+
+container:
+  port: 8080 # Port on which the container listens
+  resources:
+    requests:
+      cpu: helm/stages/?/values.yaml # CPU requests for the container
+      memory: helm/stages/?/values.yaml # Memory requests for the container
+    limits:
+      cpu: helm/stages/?/values.yaml # CPU limits for the container
+      memory: helm/stages/?/values.yaml # Memory limits for the container
+
+service:
+  type: ClusterIP # Type of Kubernetes service
+  port: 80 # Port on which the service is exposed
+  sync: false # Whether to sync the service
+  internal: true # Whether the service is internal
+
+image:
+  registry: deploy.sh
+  username: deploy.sh
+  password: deploy.sh
+  repository: deploy.sh
+  tag: deploy.sh
+
+stage:
+  environment: helm/stages/?/values.yaml # Environment-specific values

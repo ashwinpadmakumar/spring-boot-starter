@@ -1,0 +1,21 @@
+replicas: 2
+
+autoscale:
+  enabled: true
+  replicas:
+    min: 2
+    max: 4
+  target:
+    cpu: 80
+
+container:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+stage:
+  environment: dev

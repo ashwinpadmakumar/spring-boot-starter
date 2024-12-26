@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SOURCE_DIR = 'source/spring-boot-template'
-        DOCKER_IMAGE = 'ashwin2692/spring-boot-starter'
+        DOCKER_IMAGE = 'simpleimages/spring-boot-starter'
     }
 
     stages {
@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
-                        sh 'docker login -u ashwin2692 -p $dockerpwd'
+                        sh 'docker login -u simpleimages -p $dockerpwd'
                         sh "docker push ${DOCKER_IMAGE}:latest"
                         sh "docker push ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
                     }

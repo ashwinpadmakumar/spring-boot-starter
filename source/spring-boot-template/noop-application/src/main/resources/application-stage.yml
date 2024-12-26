@@ -1,2 +1,2 @@
 test-properties:
-  env: nonprod
+  env: stage

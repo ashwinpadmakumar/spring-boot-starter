@@ -29,8 +29,11 @@ pipeline {
             steps {
                 echo 'Packing the application into docker image'
                 dir("${SOURCE_DIR}") {
-                    sh 'docker -v'
-                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
+                    withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
+                        sh 'docker -v'
+                        sh "docker login -u simpleimages -p $dockerpwd"
+                        sh "docker build -t ${DOCKER_IMAGE}:latest ."
+                    }
                 }
             }
         }
@@ -46,10 +49,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
-                        sh "echo ${dockerpwd}"
                         sh "docker login -u simpleimages -p $dockerpwd"
-                        sh "docker push ${DOCKER_IMAGE}:latest"
                         sh "docker push ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
+                        sh "docker push ${DOCKER_IMAGE}:latest"
                     }
                 }
             }

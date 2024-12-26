@@ -6,14 +6,14 @@
  * @version: 0.1
  */
 
-package com.workspace;
+package com.workspace.noopapplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.workspace.properties.TestProperties;
+import com.workspace.noopapplication.properties.TestProperties;
 
 @Component
 public class ApplicationRunner implements CommandLineRunner {

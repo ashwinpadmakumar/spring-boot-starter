@@ -6,7 +6,7 @@
  * @version: 0.1
  */
 
-package com.workspace;
+package com.workspace.noopapplication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +14,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServiceApplication {
+public class Main {
 
-  public static Logger logger = LoggerFactory.getLogger(ServiceApplication.class);
+  public static Logger logger = LoggerFactory.getLogger(Main.class);
 
   public static void main(String[] args) {
-    SpringApplication.run(ServiceApplication.class, args);
-    logger.debug("Starting the service application");
+    SpringApplication.run(Main.class, args);
+    logger.debug("Starting the noop application");
   }
 
 }

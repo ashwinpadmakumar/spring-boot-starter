@@ -7,7 +7,7 @@
  */
 
 
-package com.workspace.controller;
+package com.workspace.noopapplication.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

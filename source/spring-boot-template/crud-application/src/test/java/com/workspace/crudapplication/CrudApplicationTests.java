@@ -1,12 +1,12 @@
 /**
- * Description: Template Controller.
+ * Description: Test class.
  *
  * @author: Ashwin Padmakumar
  * @since: 23/07/21
  * @version: 0.1
  */
 
-package com.workspace;
+package com.workspace.crudapplication;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ServiceApplicationTests {
+class CrudApplicationTests {
 
-  public static Logger logger = LoggerFactory.getLogger(ServiceApplication.class);
+  public static Logger logger = LoggerFactory.getLogger(Main.class);
 
   @Test
   void contextLoads() {

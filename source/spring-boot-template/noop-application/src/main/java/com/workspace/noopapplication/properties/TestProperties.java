@@ -6,7 +6,7 @@
  * @version: 0.1
  */
 
-package com.workspace.properties;
+package com.workspace.noopapplication.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

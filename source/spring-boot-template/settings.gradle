@@ -1,2 +1,3 @@
 rootProject.name = 'spring-boot-template'
 include 'noop-application'
+include 'crud-application'

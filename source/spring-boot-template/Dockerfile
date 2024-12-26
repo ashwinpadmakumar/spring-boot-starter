@@ -1,5 +1,5 @@
 # Use an OpenJDK base image
-FROM openjdk:17
+FROM ibm-semeru-runtimes:open-17-jdk as builder
 
 # Set the working directory in the container
 WORKDIR /app

@@ -46,7 +46,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
-                        sh 'docker login -u simpleimages -p $dockerpwd'
+                        sh "echo ${dockerpwd}"
+                        sh "docker login -u simpleimages -p $dockerpwd"
                         sh "docker push ${DOCKER_IMAGE}:latest"
                         sh "docker push ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
                     }

@@ -9,9 +9,9 @@
 package com.workspace.service.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
 @ConfigurationProperties(prefix = "test-properties")
 public class TestProperties {
 

@@ -7,6 +7,8 @@ plugins {
 /*
     What is bootRun?
     The bootRun task is a Gradle task provided by the Spring Boot Gradle plugin. It is used to run the Spring Boot application.
+
+    Run as `./gradlew bootRun -Pargs="--server.port=8081"`
 */
 bootRun {
     if (project.hasProperty('jvmArgs')) {
@@ -14,12 +16,6 @@ bootRun {
     }
     if (project.hasProperty('args')) {
         args = (project.args.split(/\s+/) as List)
-    }
-}
-
-jar {
-    manifest {
-        attributes "Main-Class": "com.workspace.service.ServiceApplication"
     }
 }
 

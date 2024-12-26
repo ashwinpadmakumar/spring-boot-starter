@@ -7,6 +7,7 @@ allprojects {
     group = 'com.workspace'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '17'
+    targetCompatibility = '17'
 
     apply plugin: 'checkstyle'
     checkstyle {
@@ -26,20 +27,7 @@ allprojects {
     }
 }
 
-subprojects {
-    sourceCompatibility = '17'
-    targetCompatibility = '17'
-
-    apply plugin: 'checkstyle'
-    checkstyle {
-        toolVersion '8.39'
-        configFile rootProject.file('config/checkstyle/checkstyle.xml')
-        ignoreFailures = false
-        maxWarnings = 0
-        maxErrors = 0
-    }
-
-    test {
-        useJUnitPlatform()
-    }
+// Disable the jar task for the root project
+tasks.named('jar').configure {
+    enabled = false
 }

@@ -6,7 +6,7 @@
  * @version: 0.1
  */
 
-package com.workspace.service;
+package com.workspace;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

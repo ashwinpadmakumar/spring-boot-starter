@@ -7,7 +7,7 @@
  */
 
 
-package com.workspace.service.controller;
+package com.workspace.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

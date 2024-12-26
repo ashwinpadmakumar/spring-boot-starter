@@ -6,7 +6,7 @@
  * @version: 0.1
  */
 
-package com.workspace.service;
+package com.workspace;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

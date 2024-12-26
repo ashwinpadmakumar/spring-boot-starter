@@ -6,7 +6,7 @@
  * @version: 0.1
  */
 
-package com.workspace.service.properties;
+package com.workspace.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

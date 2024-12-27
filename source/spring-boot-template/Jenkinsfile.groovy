@@ -10,7 +10,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Checkout to master'
                 checkout scmGit(
                     branches: [[name: '*/master']],
                     extensions: [],
@@ -26,33 +25,19 @@ pipeline {
                 }
             }
         }
-        stage('Package') {
+        stage('Package and Push') {
             steps {
-                echo 'Packing the application into docker image'
                 dir("${SOURCE_DIR}") {
-                    withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
-                        sh 'docker -v'
-                        sh "docker login -u ${DOCKER_REGISTRY} -p $dockerpwd"
-                        sh "docker build -t ${DOCKER_IMAGE}:latest ."
-                    }
-                }
-            }
-        }
-        stage('Tag') {
-            steps {
-                script {
-                    env.COMMIT_HASH = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
-                    sh "docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
-                }
-            }
-        }
-        stage('Push') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
-                        sh "docker login -u ${DOCKER_REGISTRY} -p $dockerpwd"
-                        sh "docker push ${DOCKER_IMAGE}:${env.COMMIT_HASH}"
-                        sh "docker push ${DOCKER_IMAGE}:latest"
+                    script {
+                        withCredentials([string(credentialsId: 'dockerhub-password', variable: 'dockerpwd')]) {
+                            sh "docker login -u ${DOCKER_REGISTRY} -p $dockerpwd"
+                            sh 'docker -v'
+                            def commitHash = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+                            sh "docker build -t ${DOCKER_IMAGE}:${commitHash} ."
+                            sh "docker tag ${DOCKER_IMAGE}:${commitHash} ${DOCKER_IMAGE}:latest"
+                            sh "docker push ${DOCKER_IMAGE}:${commitHash}"
+                            sh "docker push ${DOCKER_IMAGE}:latest"
+                        }
                     }
                 }
             }

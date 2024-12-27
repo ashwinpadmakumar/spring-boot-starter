@@ -115,8 +115,8 @@ services:
 
   jenkins-service:
     build:
-      context: ./dockerfiles
-      dockerfile: jenkins.Dockerfile
+      context: ./setup/jenkins
+      dockerfile: Dockerfile
     ports:
       - "9090:8080"
       - "50000:50000"
@@ -126,7 +126,7 @@ services:
     depends_on:
       - docker-service
     environment:
-      # ENVs to use docker commands in jenkins-service container
+      #ENVs to use docker commands in jenkins-service container
       DOCKER_HOST: "tcp://docker-service:2376"
       DOCKER_TLS_VERIFY: 1
       DOCKER_CERT_PATH: /certs/client
@@ -144,7 +144,8 @@ services:
     ports:
       - "2376:2376"
     volumes:
-      - ./.shared-volumes/docker/certs:/certs #Exposing the certs to pwd volume so that jenkins-service can use the certs to contact docker
+      #Exposing the certs to pwd volume so that jenkins-service can use the certs to contact docker-service
+      - ./.shared-volumes/docker/certs:/certs
     networks:
       - personal-network
     hostname: docker-service
@@ -159,4 +160,3 @@ volumes:
   redis_data:
   postgres_data:
   jenkins_home:
-  docker_data:

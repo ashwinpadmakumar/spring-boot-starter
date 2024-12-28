@@ -1,9 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels: {{- include "labels" . | indent 4 }}
-  annotations: {{- include "annotations" . | indent 4 }}
-  name: {{ .Chart.name }}
+  labels:
+    {{- include "labels" . | indent 4 }}
+  annotations:
+    {{- include "annotations" . | indent 4 }}
+  name: {{ .Chart.Name }}
   namespace: {{ .Release.Namespace }}
 spec:
   selector:
@@ -18,8 +20,10 @@ spec:
       maxUnavailable: {{ .Values.strategy.unavailable }}
   template:
     metadata:
-      labels: {{- include "labels" . | indent 6 }}
-      annotations: {{- include "annotations" . | indent 6 }}
+      labels:
+        {{- include "labels" . | indent 4 }}
+      annotations:
+        {{- include "annotations" . | indent 4 }}
     spec:
       containers:
         - name: {{ .Chart.Name }}

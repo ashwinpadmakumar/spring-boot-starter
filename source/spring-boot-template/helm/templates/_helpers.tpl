@@ -1,11 +1,11 @@
-{{- define "labels" -}}
+{{- define "labels" }}
 app.kubernetes.io/name: {{ .Chart.Name | quote }}
-helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | quote }}
+helm.sh/chart: {{ .Chart.Name | quote }}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
 app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
 {{- end }}
 
-{{- define "annotations" -}}
+{{- define "annotations" }}
 meta.helm.sh/release-name: {{ .Release.Name }}
 meta.helm.sh/release-namespace: {{ .Release.Namespace }}
 {{- end }}
